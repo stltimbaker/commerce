@@ -1,0 +1,66 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="container">
+        <br/>
+        <div class="row">
+            <div class="col-4">
+                <img src="{{listing.imageURL}}" class="img-fluid" alt="listing.itemName">
+            </div>
+            <div class="col-4">
+                <div class="display-4">{{listing.itemName}}</div>
+                <div class="lead">{{listing.itemShortDescription}}</div>
+                <br/>
+                <h4>Starting price ${{ listing.setPrice }}</h4>
+                <p><i>{{listing.itemLongDescription}}</i></p>
+                <br/>
+                <form action="{% url 'listing' listing.id %}" method="POST">
+                    {% csrf_token %}
+                    {% if watches == 0 %}
+                        <input type="hidden" name="action" id="action" value="add">
+                        <input type="hidden" name="user" id="user" value="{{user.id}}">
+                        <button type="submit" class="btn btn-info">Add Watch</button>
+                    {% else %}
+                        <input type="hidden" name="action" id="action" value="remove">
+                        <input type="hidden" name="watch" id="user" value="{{user.id}}">
+                        <button type="submit" class="btn btn-success">Watching!</button>
+                    {% endif %}
+                    
+                </form>
+               
+            </div>
+            <div class="col-4">
+                {% if listing.bids.count > 0 %}
+                    {% if listing.bids.count == 1 %}
+                        <span class="badge badge-success">{{listing.bids.count}} Bid</span>
+                    {% else %}
+                        <span class="badge badge-success">{{listing.bids.count}} Bids</span>
+                    {% endif %}
+                    {% for bid in bids %}
+                        <br/>User {{ bid.user }}: ${{ bid.amount }} @ {{bid.date}} {{bid.time}}
+                    {% endfor %}
+                {% else %}
+                <span class="badge badge-success">0 Bids</span>
+                {% endif %}
+            </div>
+        </div>
+        {% if listing.comments.count > 0 %}
+        <br/>
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-success" role="alert">
+                        <h4>Comments about this listing:</h4>
+                        <ul class="comment">
+                            {% for comment in comments %}
+                                <li><strong>{{comment.user}}</strong>: <i>"{{comment.comment}}"</i></li>
+                            {% endfor%}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    
+
+{% endblock %}
