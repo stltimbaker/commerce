@@ -1,5 +1,5 @@
 body {
-    background-color:lightyellow;
+    background-color:wheat;
 }
 
 a {
@@ -32,5 +32,5 @@ a:hover {
 
 .navTopStyle {
     background-color: lightskyblue;
-    border-bottom: solid lightgrey 5px;
+    border-bottom: solid darkslateblue 5px;
 }

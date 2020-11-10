@@ -31,6 +31,7 @@ class Listing(models.Model):
         related_name="listings"
     )
     imageURL = models.URLField()
+    isOpen = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.id}:{self.itemName} - {self.itemShortDescription} (by: {self.listedBy})"
@@ -61,7 +62,6 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name="comments"
     )
-    title = models.CharField(max_length=64)
     comment = models.TextField()
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
