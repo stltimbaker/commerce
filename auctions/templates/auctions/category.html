@@ -1,0 +1,46 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col" style="padding:5px;">
+                <h2>{{category.name}}</h2>
+                <i>{{category.description}}</i>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="container">
+        <div class="row">
+            {% for listing in things %}
+                <div class="col">
+                    <div class="card" style="width: 15rem;">
+                        {% if listing.bids.count == 1 %}
+                            <div>
+                                &nbsp;<span class="badge badge-success">{{listing.bids.count}} Bid</span>
+                            </div>                        
+                        {% elif listing.bids.count > 1 %}
+                            <div>
+                                &nbsp;<span class="badge badge-success">{{listing.bids.count}} Bids</span>
+                            </div>
+                        {% else %}
+                            <div>
+                                &nbsp;<span class="badge badge-success">0 Bids</span>
+                            </div>
+                        {% endif %}
+                        <img src="{{listing.imageURL}}" class="listingImage img-fluid" alt="{{listing.itemName}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{listing.itemName}}</h5>
+                            <p><i>{{listing.itemShortDescription}}</i></p>
+                            <div class="text-right">
+                                <a href="{% url 'listing' listing.id %}" class="btn btn-outline-info">View Item</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br/>
+{% endblock %}

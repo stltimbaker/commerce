@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Add Auction Listing</h2>
+
+    <form action="{% url 'addlisting' %}" method="POST">
+        {% csrf_token %}
+        <table class="table table-responsive table-sm">
+            {{ form }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+    <h4 style="color:orangered">{{message}}</h4>
+
+{% endblock %}
